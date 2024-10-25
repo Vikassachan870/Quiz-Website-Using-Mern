@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
 import axios from 'axios';
-// import {useHistory} from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
 const SignUp = () => {

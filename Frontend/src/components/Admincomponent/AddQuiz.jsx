@@ -9,12 +9,12 @@ const AddQuiz = () => {
   const [time, setTime] = useState('');
   const [totalMarks, setTotalMarks] = useState('');
   const navigate = useNavigate();
-  useEffect(() => {
-    const crole = localStorage.getItem("role");
-    if (crole !== "admin") {
-        navigate("/");
-    }
-}, [navigate]);
+//   useEffect(() => {
+//     const crole = localStorage.getItem("role");
+//     if (crole !== "admin") {
+//         navigate("/");
+//     }
+// }, [navigate]);
   const handleNumQuestionsChange = (event) => {
     const number = parseInt(event.target.value, 10);
     setNumQuestions(number);

@@ -3,10 +3,11 @@ const bcrypt = require("bcrypt");
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const { authenticateToken } = require("./userauth");
+const Result=require("../models/result");
 
 router.post("/register", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email,password } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res
@@ -24,7 +25,7 @@ router.post("/register", async (req, res) => {
     await newUser.save();
     return res.status(200).json({ message: "Registration successful." });
   } catch (err) {
-    res.status(500).json({ message: "Internal server error." });
+    res.status(500).json({ message:err});
   }
 });
 
@@ -119,4 +120,18 @@ router.get("/get_user_info", authenticateToken, async (req, res) => {
   }
 });
 
+router.get("/getresult/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    return res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
 module.exports = router;

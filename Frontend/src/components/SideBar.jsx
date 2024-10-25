@@ -8,6 +8,7 @@ const SideBar = () => {
    
 
     useEffect(() => {
+        document.title = 'All Quizzes';
         const fetchSubjects = async () => {
             try {
                 const response = await axios.get(

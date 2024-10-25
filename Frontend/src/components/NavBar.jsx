@@ -20,18 +20,20 @@ const NavBar = () => {
           className="flex justify-between px-16 py-3 shadow-md shadow-purple-500 text-white"
           style={styles}
         >
-          <ul className="flex space-x-14">
-            <li className="font-bold text-2xl">Olt Website</li>
-            <NavLink to="/" className="py-1 hover:font-semibold text-white">
-              <span className="fa-solid fa-house"></span> Home
-            </NavLink>
+          <ul className="flex md:space-x-14 sm:space-x-10">
+            <NavLink to="/" className="md:font-bold md:text-2xl sm:text-lg sm:font-bold">Olt Website</NavLink>
+           
             {isLoggedIn && (
               <>
                 <NavLink to="/quizmain" className="py-1 hover:font-semibold text-white">
                   <span className="fa-solid fa-gauge-simple-high"></span> Quizzes
                 </NavLink>
+
                 <NavLink to="/profile" className="py-1 hover:font-semibold text-white">
                   <span className="fa-solid fa-book"></span> Notes
+                </NavLink>
+                <NavLink to="/result" className="py-1 hover:font-semibold text-white">
+                  <span className="fa-solid fa-square-poll-vertical "></span> Result
                 </NavLink>
               </>
             )}

@@ -41,7 +41,7 @@ const Login = () => {
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        alert(error.response.data);
+        alert("Invalid Credentials!");
       } else {
         alert("An error occurred. Please try again later.");
       }

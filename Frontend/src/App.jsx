@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect, useState } from "react";
 import './App.css'
 import NavBar from './components/NavBar'
 import Home from "./components/Home";
@@ -24,11 +24,19 @@ import QuizStart from "./components/QuizStart";
 import AllQuiz from "./components/Admincomponent/AllQuiz";
 import AllUser from "./components/Admincomponent/AllUser";
 import AddQuiz from "./components/Admincomponent/AddQuiz";
+import Result from "./components/Result";
+import ViewResult from "./components/ViewResult";
 
 export const UserContext = createContext();
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [role, setRole] = useState(null);
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    setRole(storedRole);
+  }, []);
 
   return (
     <>
@@ -47,17 +55,24 @@ const App = () => {
               <Route path="/fourth" element={<Fourth />}></Route>
               <Route path="/quizmain" element={<Quiz />}></Route>
               <Route path="/start1" element={<QuizStart />}></Route>
-              <Route path="/admin" element={<AdminPanel />}></Route>
-              <Route path="/admin/allquiz" element={<AllQuiz/>}></Route>
-              <Route path="/admin/alluser" element={<AllUser/>}></Route>
-              <Route path="/admin/addquiz" element={<AddQuiz/>}></Route>
               <Route path="/" element={<Home />}></Route>
+              <Route path="/result" element={<Result/>}></Route>
+              <Route path="/result/myresult/:resultId" element={<ViewResult/>}></Route>
+
+              {role === "admin" && (
+                <>
+                  <Route path="/admin" element={<AdminPanel />}></Route>
+                  <Route path="/admin/allquiz" element={<AllQuiz />}></Route>
+                  <Route path="/admin/alluser" element={<AllUser />}></Route>
+                  <Route path="/admin/addquiz" element={<AddQuiz />}></Route>
+                </>
+              )}
             </Routes>
           </Router>
         </div>
       </UserContext.Provider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

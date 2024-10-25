@@ -42,7 +42,7 @@ const quiz = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  timestamp: { type: Date, default: Date.now }
+  timestamp: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("quiz",quiz);
+module.exports = mongoose.model("quiz", quiz);

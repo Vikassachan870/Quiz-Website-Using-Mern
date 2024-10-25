@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 
-const resultSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
-  quiz: { type: mongoose.Schema.Types.ObjectId, ref: "quiz", required: true },
+const result = new mongoose.Schema({
+  quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'quiz', required: true },
+  quizName:{ type: [String], required: true },
+  topicName:{ type: [String], required: true },
   selectedAnswers: { type: [String], required: true },
+  totalmarks:{type:Number},
   marks: { type: Number, required: true },
-  timestamp: { type: Date, default: Date.now },
+  dateAttempted: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Result", resultSchema);
+module.exports = mongoose.model("result", result);

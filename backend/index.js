@@ -9,7 +9,6 @@ require("./conn/conn");
 const user = require("./routes/user");
 const quizes =require("./routes/quiz")
 const result =require("./routes/result")
-// Use the imported routes
 app.use("/api/v1", user,quizes,result);
 // Start the server
 app.listen(1000, () => {
