@@ -23,7 +23,7 @@ const AllUser = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:1000/api/v1/all-user',{
+      const response = await axios.get("http://localhost:1000/api/v1/all-user",{
         headers: {
           Authorization: `Bearer ${token}`, // Include the token in the Authorization header
         },

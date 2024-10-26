@@ -10,6 +10,7 @@ const user = require("./routes/user");
 const quizes =require("./routes/quiz")
 const result =require("./routes/result")
 app.use("/api/v1", user,quizes,result);
+
 // Start the server
 app.listen(1000, () => {
   console.log('Server listening on port 1000');

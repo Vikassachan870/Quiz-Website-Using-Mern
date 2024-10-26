@@ -51,8 +51,7 @@ const QuizStart = () => {
     const fetchQuiz = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:1000/api/v1/quiz/fetch-quiz/${location.state.from}`
-        );
+          `http://localhost:1000/api/v1/quiz/fetch-quiz/${location.state.from}`);
         setMinutes(res.data.time); // Set time from response
         setQuizData(res.data);
         setSelectedAnswers(Array(res.data.questions.length).fill(null)); // Initialize answers

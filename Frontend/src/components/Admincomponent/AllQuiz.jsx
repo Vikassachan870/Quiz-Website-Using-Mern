@@ -24,7 +24,7 @@ const AllQuiz = () => {
 
   const fetchQuizzes = async () => {
     try {
-      const response = await axios.get('http://localhost:1000/api/v1/quiz/all-quiz');
+      const response = await axios.get("http://localhost:1000/api/v1/quiz/all-quiz");
       setQuizzes(response.data);
     } catch (error) {
       console.error('Error fetching quizzes:', error);
