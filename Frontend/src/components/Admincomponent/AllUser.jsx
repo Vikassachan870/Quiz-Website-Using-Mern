@@ -9,7 +9,7 @@ const AllUser = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', role: '' });
-
+  const token = localStorage.getItem('token'); 
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -23,7 +23,12 @@ const AllUser = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:1000/api/v1/all-user');
+      const response = await axios.get('http://localhost:1000/api/v1/all-user',{
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        },
+      });
+
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -32,7 +37,11 @@ const AllUser = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      await axios.delete(`http://localhost:1000/api/v1/delete-user/${userId}`);
+      await axios.delete(`http://localhost:1000/api/v1/delete-user/${userId}`,{
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        },
+      });
       setUsers(users.filter(user => user._id !== userId));
     } catch (error) {
       console.error('Error deleting user:', error);

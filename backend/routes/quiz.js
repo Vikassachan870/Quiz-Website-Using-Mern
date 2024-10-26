@@ -24,6 +24,7 @@ router.get("/quiz/all-quiz", async (req, res) => {
 
 router.post("/quiz/createquiz", async (req, res) => {
   try {
+    
     const quizData = req.body;
     const newQuiz = new Quiz(quizData);
     await newQuiz.save();
@@ -43,9 +44,14 @@ router.get("/quiz/fetch-topic/:subjectName", async (req, res) => {
   }
 });
 
-router.delete("/quiz/delete-quiz/:id", async (req, res) => {
+router.delete("/quiz/delete-quiz/:id",authenticateToken, async (req, res) => {
   try {
     const quizId = req.params.id;
+    const requesterId = req.user.id;
+    const requesterUser = await User.findById(requesterId);
+    if (requesterUser.role !== "admin") {
+      return res.status(403).send({ message: "You do not have permission to perform this action" });
+    }
     const result = await Quiz.findByIdAndDelete(quizId);
 
     if (!result) {

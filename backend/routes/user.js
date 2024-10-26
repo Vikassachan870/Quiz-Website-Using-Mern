@@ -95,11 +95,26 @@ router.get("/all-user", async (req, res) => {
   }
 });
 
-router.delete("/delete-user/:userId", async (req, res) => {
+router.delete("/delete-user/:userId", authenticateToken, async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const result = await User.findByIdAndDelete(userId);
+    const userIdToDelete = req.params.userId;
+    const requesterId = req.user.id;
+    
+    // Fetch the requester user from the database
+    const requesterUser = await User.findById(requesterId);
+    
+    if (!requesterUser) {
+      return res.status(404).send({ message: "Requester user not found" });
+    }
 
+    // Check if the requester is an admin
+    if (requesterUser.role !== "admin") {
+      return res.status(403).send({ message: "You do not have permission to perform this action" });
+    }
+
+    // Delete the user
+    const result = await User.findByIdAndDelete(userIdToDelete);
+    
     if (!result) {
       return res.status(404).send({ message: "User not found" });
     }
@@ -110,9 +125,10 @@ router.delete("/delete-user/:userId", async (req, res) => {
   }
 });
 
-router.get("/get_user_info", authenticateToken, async (req, res) => {
+
+router.get("/get_user_info",authenticateToken, async (req, res) => {
   try {
-    const { id } = req.user;
+    const { id } = req.headers;
     const data = await User.findById(id).select("-password");
     return res.status(200).json(data);
   } catch (err) {

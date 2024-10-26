@@ -47,8 +47,8 @@ const Result = () => {
   return (
     <div>
       <NavBar/>
-      <h2 className='text-2xl font-bold flex justify-center'>Quiz Results</h2>
-      <table className="table table-success table-striped">
+      <h2 className='text-2xl font-bold flex justify-center '>Quiz Results</h2>
+      <table className="table table-bordered">
         <thead>
           <tr>
             <th>Subject Name</th>
